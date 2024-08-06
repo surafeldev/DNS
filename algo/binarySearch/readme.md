@@ -19,7 +19,7 @@ Binary search is a widely used algorithm for searching elements in a sorted list
 
 ## Example in Pseudocode:
 
-    ```plaintext
+    
     function binarySearch(array, target):
         low = 0
         high = length(array) - 1
@@ -34,7 +34,7 @@ Binary search is a widely used algorithm for searching elements in a sorted list
                         high = mid - 1
 
         return -1  // Target not found
-    ```
+    
 
 ## Example in JavaScript:
 

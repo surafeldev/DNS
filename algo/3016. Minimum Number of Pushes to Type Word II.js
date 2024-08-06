@@ -1,30 +1,26 @@
-/**
- * @param {string} word
- * @return {number}
- */
-var minimumPushes = function(word) {
+function minimumPushes(word) {
+    const frequency = {};
 
-    const frequency = {}; // {a: 1, b: 2, c: 3}
-    for (let char of word) {
-        if (!frequency[char]) {
-            frequency[char] = 0;
-        }
-        frequency[char]++;
+    // Count the frequency of each letter
+    for (const char of word) {
+        frequency[char] = (frequency[char] || 0) + 1;
     }
 
-    const sortedLetters = Object.keys(frequency).sort((a, b) => frequency[b] - frequency[a]); // [c, b, a] 
- 
-    let totalPushes = 0;
-    let keyPushes = 1;
-    let lettersAssigned = 0;
+    // Get an array of frequencies and sort it in descending order
+    const sortedFrequencies = Object.values(frequency).sort((a, b) => b - a);
 
-    for (let letter of sortedLetters) { // c, b, a
-        totalPushes += frequency[letter] * keyPushes;
-        lettersAssigned++;
-        if (lettersAssigned % 3 === 0) {
-            keyPushes++;
+    let totalPushes = 0;
+    let currentPushCost = 1;
+    let index = 0;
+
+    while (index < sortedFrequencies.length) {
+        // Process up to 8 letters at the current push cost
+        for (let i = 0; i < 8 && index < sortedFrequencies.length; i++, index++) {
+            totalPushes += sortedFrequencies[index] * currentPushCost;
         }
+        // Increase push cost after processing 8 letters
+        currentPushCost++;
     }
 
     return totalPushes;
-};
+}
