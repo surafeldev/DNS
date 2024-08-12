@@ -5,7 +5,7 @@
  */
 var findMedianSortedArrays = function(nums1, nums2) {
 
-        if (nums1.length > nums2.length) {
+        if (nums1.length > nums2.length) { // Ensure nums1 is the smaller array
             return findMedianSortedArrays(nums2, nums1);
         }
         
@@ -14,7 +14,8 @@ var findMedianSortedArrays = function(nums1, nums2) {
         let low = 0;
         let high = x;
         
-        while (low <= high) {
+        while (low <= high) { // Binary search
+
             let partitionX = Math.floor((low + high) / 2);
             let partitionY = Math.floor((x + y + 1) / 2) - partitionX;
             
@@ -24,8 +25,8 @@ var findMedianSortedArrays = function(nums1, nums2) {
             let maxY = partitionY === 0 ? Number.MIN_SAFE_INTEGER : nums2[partitionY - 1];
             let minY = partitionY === y ? Number.MAX_SAFE_INTEGER : nums2[partitionY];
             
-            if (maxX <= minY && maxY <= minX) {
-                
+            if (maxX <= minY && maxY <= minX) { // Found the correct partition
+
                 if ((x + y) % 2 === 0) {
                     return (Math.max(maxX, maxY) + Math.min(minX, minY)) / 2;
                 } else {
